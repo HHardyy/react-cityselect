@@ -3,10 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
+import { Provider } from 'react-redux'
+import { createStore } from 'redux'
+import { 
+    BrowserRouter,
+    Route 
+} from 'react-router-dom'
+import { city } from './citySelect.redux'
+import CitySelect from './cityselect.js'
+const store=createStore(city)
+ReactDOM.render(
+	(
+		 <Provider store={store}>
+            <BrowserRouter>
+            <div>
+                <Route path="/" exact component={ App } ></Route>
+                <Route path="/selectcity" component={ CitySelect }></Route>
+            </div>
+        </BrowserRouter>
+        </Provider>
+	)
+	, document.getElementById('root'));
 serviceWorker.unregister();
+
